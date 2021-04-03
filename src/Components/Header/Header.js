@@ -9,7 +9,7 @@ const Header = (props) => (
     
     <div className='header'>
         <Link className='logo-container' to='/'>
-            <img src= {logo}/>
+            <img src= {logo} alt='company logo'/>
         </Link>
         <div className='options'>
             <Link className='logo-container' to='/shop'>SHOP</Link>

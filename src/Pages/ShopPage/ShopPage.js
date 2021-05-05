@@ -1,16 +1,11 @@
-
 import React from 'react'
 import { Route } from 'react-router'
-import ColectionsOwereiew from '../../Components/Collections-overview/ColectionsOwereiew'
-import CollectionPage from '../CollectionPage/CollectionPage'
 import { fatchCollectionSrartAsync} from '../../Redux/shop/shop-actions'
 import { connect } from 'react-redux'
-import WithSpinner from '../../Components/WithSpier/WithSpiner'
-import { createStructuredSelector } from 'reselect'
-import { selectIsCollectionFatching, selectIsCollectionLoaded } from '../../Redux/shop/shop-selectors'
+import { CollectionOverviewContainer } from '../../Components/Collections-overview/CollectionOverviewContainer'
+import { CollectionPageContainer } from '../CollectionPage/CollectionPageContainer'
 
-const CollectionPageWithSpinner = WithSpinner(CollectionPage)
-const CollectionOwerviewWithSpinner = WithSpinner(ColectionsOwereiew)
+
 class ShopPage extends React.Component  {
     
     componentDidMount(){
@@ -19,12 +14,12 @@ class ShopPage extends React.Component  {
     }
 
     render() {
-        const {match, isCollectionLoaded} = this.props
+        const {match} = this.props
         
         return (
             <div className='shop-page'>
-                <Route exact path ={`${match.path}`} render = { (props) => <CollectionOwerviewWithSpinner isLoading={!isCollectionLoaded} {...props}/> } />
-                <Route  path ={`${match.path}/:collectionId`} render = { (props) => <CollectionPageWithSpinner isLoading={!isCollectionLoaded} {...props}/> }/>      
+                <Route exact path ={`${match.path}`} component= {CollectionOverviewContainer} />
+                <Route  path ={`${match.path}/:collectionId`} component= {CollectionPageContainer}/>      
             </div>
         )
     }
@@ -34,9 +29,6 @@ class ShopPage extends React.Component  {
 const mapDispatchToProps = dispatch => ({
     fatchCollectionSrartAsync: () => dispatch(fatchCollectionSrartAsync())
 })
-const mapStateToProps = createStructuredSelector({
-    isCollectionFatching: selectIsCollectionFatching,
-    isCollectionLoaded: selectIsCollectionLoaded
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopPage)
+
+export default connect(null, mapDispatchToProps)(ShopPage)

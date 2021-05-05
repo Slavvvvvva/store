@@ -16,3 +16,12 @@ export const selectCollection = collectionUrlParam => createSelector(
     [selectShopCollections],
     collections => collections? collections[collectionUrlParam] : null
 )
+
+export const selectIsCollectionFatching = createSelector(
+    [selectShop],
+    shop => shop.isFatching
+)
+export const selectIsCollectionLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections
+)

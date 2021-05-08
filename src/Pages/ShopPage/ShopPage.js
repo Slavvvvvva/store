@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router'
-import { fatchCollectionSrartAsync} from '../../Redux/shop/shop-actions'
+import { fatchCollectionSrart} from '../../Redux/shop/shop-actions'
 import { connect } from 'react-redux'
 import { CollectionOverviewContainer } from '../../Components/Collections-overview/CollectionOverviewContainer'
 import { CollectionPageContainer } from '../CollectionPage/CollectionPageContainer'
@@ -9,8 +9,8 @@ import { CollectionPageContainer } from '../CollectionPage/CollectionPageContain
 class ShopPage extends React.Component  {
     
     componentDidMount(){
-      const {fatchCollectionSrartAsync} = this.props
-      fatchCollectionSrartAsync()
+      const {fetchCollectionStart} = this.props
+      fetchCollectionStart()
     }
 
     render() {
@@ -27,7 +27,8 @@ class ShopPage extends React.Component  {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fatchCollectionSrartAsync: () => dispatch(fatchCollectionSrartAsync())
+    fetchCollectionStart: () => dispatch(fatchCollectionSrart())
+
 })
 
 

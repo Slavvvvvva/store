@@ -33,3 +33,17 @@ export const EmailSignInFailure = massage => ({
     type: UserActionTypes.EMAIL_SIGN_IN_FAILURE,
     payload: massage
 })
+
+export const chackUserSession = () => ({
+    type: UserActionTypes.CHACK_USER_SESSION,
+})
+export const signOutSession = () => ({
+    type: UserActionTypes.SIGN_OUT_SESSION_START,
+})
+export const signOutSessionSucces = () => ({
+    type: UserActionTypes.SIGN_OUT_SESSION_SUCCES,
+})
+export const signOutSessionFailure = (massage) => ({
+    type: UserActionTypes.SIGN_OUT_SESSION_FAILURE,
+    payload: massage
+})

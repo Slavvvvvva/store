@@ -1,5 +1,8 @@
 import React from 'react'
-import { auth, createUserProfileDocument } from '../../Firebase/firebase'
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import { signUpSessionStart } from '../../Redux/user/user-actions'
+import {selectSuccesMasage} from '../../Redux/user/user-selektor'
 import CustomButton from '../CustomButton/CustomButton'
 import FormInput from '../FormInput/FormInput'
 import './sign-up.styles.scss'
@@ -18,13 +21,13 @@ class SignUp extends React.Component {
 
     handleSubmit = async e => {
         e.preventDefault()
-        const {displayName, email,password,confirmPassword} = this.state
+        const {password,confirmPassword} = this.state
 
-        if (password !== confirmPassword){
+        if (password !== confirmPassword) {
             alert('password dont match')
             return
         }
-        try{
+        /* try{
             const {user} = await auth.createUserWithEmailAndPassword(email, password)
             await createUserProfileDocument(user, {displayName})
 
@@ -38,7 +41,9 @@ class SignUp extends React.Component {
             )    
         } catch (error) {
             console.error(error)
-        }
+        } */
+        const {signUpSessionStart} = this.props
+        signUpSessionStart(this.state)
     }
 
     handleChange = e => {
@@ -49,6 +54,7 @@ class SignUp extends React.Component {
 
     render(){
         const {displayName, email,password,confirmPassword} = this.state
+        const {succesMasage} = this.props
         return(
             <div className = 'sign-up'>
                 <h2 className = 'title'>I do not have a acaunt</h2>
@@ -89,12 +95,22 @@ class SignUp extends React.Component {
                         label = 'Confirm Password'
                         required
                     />
-                    <CustomButton type= 'submit'> Sign Up </CustomButton>
+                    <CustomButton type= 'submit'> { succesMasage ||'Sign Up'} </CustomButton>
                     
                 </form>
             </div>
         )
     }
 
-} 
-export default SignUp
+}
+
+const mapStateToProps = createStructuredSelector({
+    succesMasage: selectSuccesMasage,
+})
+const mapDispatchToProps = (dispatch) => ({
+    signUpSessionStart: (signUpData) => dispatch(signUpSessionStart(signUpData))
+})
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

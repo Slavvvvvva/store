@@ -6,3 +6,8 @@ export const selectCurrentUser = createSelector(
     [selectUser],
     (user) => user.currentUser
 )
+
+export const selectSuccesMasage = createSelector(
+    [selectUser],
+    (user) => user.succesMasage
+)

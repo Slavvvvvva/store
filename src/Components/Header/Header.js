@@ -1,7 +1,6 @@
 import React from 'react'
 import './header.styles.js'
 import logo from '../../IMG/crown.svg'
-import { auth } from '../../Firebase/firebase'
 import {connect} from 'react-redux'
 import CartIcon from '../CartIcon/CartIcon'
 import CartDropdown from '../CartDropdown/CartDropdown'

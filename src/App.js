@@ -12,7 +12,7 @@ import { selectCurrentUser } from './Redux/user/user-selektor'
 import { createStructuredSelector } from 'reselect'
 import ChekoutPage from './Pages/Checkout/Checkout'
 
-const App = ({ chackUserSession }) => {
+const App = ({ chackUserSession, currentUser }) => {
 
   useEffect(() => {
     chackUserSession()
@@ -25,7 +25,7 @@ const App = ({ chackUserSession }) => {
       <Header />
       <Switch>
         <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInSignUpPage />)} />
+        <Route path='/signin' render={() => currentUser ? (<Redirect to='/' />) : (<SignInSignUpPage />)} />
         <Route exact path='/chackout' component={ChekoutPage} />
         <Route path='/' component={HomePage} />
 

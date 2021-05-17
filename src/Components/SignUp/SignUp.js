@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { createStructuredSelector } from 'reselect'
+import { useDispatch, useSelector } from 'react-redux'
 import { signUpSessionStart } from '../../Redux/user/user-actions'
 import { selectSuccesMasage } from '../../Redux/user/user-selektor'
 import CustomButton from '../CustomButton/CustomButton'
 import FormInput from '../FormInput/FormInput'
 import './sign-up.styles.scss'
 
-const SignUp = ({ signUpSessionStart, succesMasage }) => {
+const SignUp = () => {
     
     let [signUpData, setSignUpData] = useState({
         displayName: '',
@@ -15,6 +14,11 @@ const SignUp = ({ signUpSessionStart, succesMasage }) => {
         password: '',
         confirmPassword: ''
     })
+
+    const dispatch = useDispatch()
+    const signUpSessionStarts = (signUpData) => dispatch(signUpSessionStart(signUpData))
+
+    const succesMasage = useSelector(selectSuccesMasage)
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -25,7 +29,7 @@ const SignUp = ({ signUpSessionStart, succesMasage }) => {
             alert('password dont match')
             return
         }
-        signUpSessionStart(signUpData)
+        signUpSessionStarts(signUpData)
     }
 
     const handleChange = e => {
@@ -85,13 +89,4 @@ const SignUp = ({ signUpSessionStart, succesMasage }) => {
 
 }
 
-const mapStateToProps = createStructuredSelector({
-    succesMasage: selectSuccesMasage,
-})
-const mapDispatchToProps = (dispatch) => ({
-    signUpSessionStart: (signUpData) => dispatch(signUpSessionStart(signUpData))
-})
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default SignUp
